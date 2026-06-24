@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Green Bean — эко-кофейня со скандинавским минимализмом. Органический кофе, zero waste, веранда на крыше.">
+  <title>Green Bean — Кофе с заботой о планете</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2D5A4A',
+            accent: '#7FB069',
+            light: '#E8F0E9',
+            cream: '#F7F9F7',
+            dark: '#2C3E2D',
+          },
+          fontFamily: {
+            heading: ['Poppins', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2C3E2D;
+      background-color: #F7F9F7;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Fade-in-up animation */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* CTA pulse */
+    @keyframes pulse-soft {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(127, 176, 105, 0.5); }
+      50% { box-shadow: 0 0 0 12px rgba(127, 176, 105, 0); }
+    }
+
+    .pulse-cta {
+      animation: pulse-soft 2.5s ease-in-out infinite;
+    }
+
+    /* Header scroll state */
+    #header.scrolled {
+      background-color: rgba(45, 90, 74, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      transition: opacity 0.3s ease;
+    }
+
+    #lightbox.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #lightbox:not(.hidden) {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+    }
+
+    #mobile-menu.closed {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    #mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    /* Cart badge */
+    .cart-badge {
+      font-size: 0.65rem;
+      min-width: 1.1rem;
+      height: 1.1rem;
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- ========== HEADER ========== -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-primary text-white transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#hero" class="font-heading font-bold text-xl sm:text-2xl flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <span aria-hidden="true">🌿</span> Green Bean
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Основная навигация">
+          <a href="#about" class="hover:text-accent transition-colors text-sm font-medium">О нас</a>
+          <a href="#menu" class="hover:text-accent transition-colors text-sm font-medium">Меню</a>
+          <a href="#gallery" class="hover:text-accent transition-colors text-sm font-medium">Галерея</a>
+          <a href="#promotions" class="hover:text-accent transition-colors text-sm font-medium">Акции</a>
+          <a href="#booking" class="hover:text-accent transition-colors text-sm font-medium">Бронь</a>
+          <a href="#contacts" class="hover:text-accent transition-colors text-sm font-medium">Контакты</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="feedback.html" class="hidden sm:flex w-10 h-10 items-center justify-center rounded-full hover:bg-white/10 transition-colors" title="Обратная связь" aria-label="Обратная связь">
+            <i class="fas fa-comment-alt text-lg"></i>
+          </a>
+          <button id="cart-btn" class="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors" title="Корзина" aria-label="Корзина">
+            <i class="fas fa-shopping-basket text-lg"></i>
+            <span id="cart-count" class="cart-badge absolute -top-0.5 -right-0.5 bg-accent text-white rounded-full flex items-center justify-center font-bold hidden">0</span>
+          </button>
+          <button id="menu-toggle" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors" aria-label="Открыть меню" aria-expanded="false">
+            <i class="fas fa-bars text-xl" id="menu-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav id="mobile-menu" class="closed lg:hidden pb-4" aria-label="Мобильная навигация">
+        <div class="flex flex-col gap-1 pt-2 border-t border-white/20">
+          <a href="#about" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">О нас</a>
+          <a href="#menu" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Меню</a>
+          <a href="#gallery" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Галерея</a>
+          <a href="#promotions" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Акции</a>
+          <a href="#booking" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Бронь</a>
+          <a href="#contacts" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Контакты</a>
+          <a href="feedback.html" class="py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium flex items-center gap-2">
+            <i class="fas fa-comment-alt"></i> Обратная связь
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section id="hero" class="relative min-h-screen flex items-center py-32 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-primary to-accent"></div>
+      <img
+        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&q=80"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-20"
+        aria-hidden="true"
+      >
+      <div class="absolute inset-0 bg-primary/30"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="fade-in-up">
+          <span class="inline-block mb-6 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-white/90 text-sm font-medium border border-white/20">
+            🌱 Эко-кофейня · Zero Waste · Веранда на крыше
+          </span>
+          <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+            Кофе с заботой<br>о планете
+          </h1>
+          <p class="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Органический кофе, zero waste, скандинавский уют.<br class="hidden sm:block">
+            Веранда на крыше с панорамным видом.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#booking" class="pulse-cta w-full sm:w-auto px-8 py-4 bg-accent hover:bg-[#6A9E5A] text-white font-heading font-semibold rounded-xl transition-all hover:scale-105 text-lg">
+              Забронировать столик
+            </a>
+            <a href="#menu" class="w-full sm:w-auto px-8 py-4 border-2 border-white text-white font-heading font-semibold rounded-xl hover:bg-white/10 transition-all hover:scale-105 text-lg">
+              Смотреть меню
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/60">
+        <i class="fas fa-chevron-down text-2xl"></i>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="py-16 sm:py-20 lg:py-28 bg-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Почему Green Bean?</h2>
+          <p class="text-lg text-dark/70 max-w-xl mx-auto">Мы заботимся о вас и планете</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <article class="fade-in-up bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center">
+            <i class="fas fa-leaf text-5xl text-accent mb-4 block" aria-hidden="true"></i>
+            <h3 class="font-heading text-xl font-bold text-primary mb-3">100% Органика</h3>
+            <p class="text-dark/70 leading-relaxed">Только сертифицированные органические зёрна. Без пестицидов и химии.</p>
+          </article>
+          <article class="fade-in-up bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center" style="transition-delay: 0.1s">
+            <i class="fas fa-recycle text-5xl text-accent mb-4 block" aria-hidden="true"></i>
+            <h3 class="font-heading text-xl font-bold text-primary mb-3">Zero Waste</h3>
+            <p class="text-dark/70 leading-relaxed">Перерабатываем кофейную гущу. Используем биоразлагаемую посуду.</p>
+          </article>
+          <article class="fade-in-up bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center" style="transition-delay: 0.2s">
+            <i class="fas fa-heart text-5xl text-accent mb-4 block" aria-hidden="true"></i>
+            <h3 class="font-heading text-xl font-bold text-primary mb-3">Локальные фермеры</h3>
+            <p class="text-dark/70 leading-relaxed">Поддерживаем местных производителей. Свежие продукты каждый день.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MENU ========== -->
+    <section id="menu" class="py-16 sm:py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Наше меню</h2>
+          <p class="text-lg text-dark/70">Свежеобжаренный кофе и авторские десерты</p>
+        </div>
+
+        <!-- Category: Coffee -->
+        <div class="mb-14 fade-in-up">
+          <h3 class="font-heading text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-accent rounded-full"></span> Кофе
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Эспрессо" data-price="150">
+              <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80" alt="Эспрессо" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Эспрессо</h4>
+                  <span class="font-heading font-bold text-accent text-lg">150 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Капучино" data-price="220">
+              <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Капучино" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Капучино</h4>
+                  <span class="font-heading font-bold text-accent text-lg">220 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Латте" data-price="250">
+              <img src="https://images.unsplash.com/photo-1561882468-9110e03fd0cf?w=600&q=80" alt="Латте" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Латте</h4>
+                  <span class="font-heading font-bold text-accent text-lg">250 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Раф" data-price="280">
+              <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Раф" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Раф</h4>
+                  <span class="font-heading font-bold text-accent text-lg">280 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Флэт Уайт" data-price="240">
+              <img src="https://images.unsplash.com/photo-1514434754449-9d67f5f6e6b5?w=600&q=80" alt="Флэт Уайт" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Флэт Уайт</h4>
+                  <span class="font-heading font-bold text-accent text-lg">240 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Американо" data-price="180">
+              <img src="https://images.unsplash.com/photo-1551030173-122d67146387?w=600&q=80" alt="Американо" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Американо</h4>
+                  <span class="font-heading font-bold text-accent text-lg">180 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Category: Alternative -->
+        <div class="mb-14 fade-in-up">
+          <h3 class="font-heading text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-accent rounded-full"></span> Альтернатива
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Пуровер" data-price="200">
+              <img src="https://images.unsplash.com/photo-1497935586351-b67b12c57c6a?w=600&q=80" alt="Пуровер" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Пуровер</h4>
+                  <span class="font-heading font-bold text-accent text-lg">200 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Кемекс" data-price="220">
+              <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80" alt="Кемекс" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Кемекс</h4>
+                  <span class="font-heading font-bold text-accent text-lg">220 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Category: Tea & Cocoa -->
+        <div class="mb-14 fade-in-up">
+          <h3 class="font-heading text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-accent rounded-full"></span> Чай и Какао
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Матча латте" data-price="260">
+              <img src="https://images.unsplash.com/photo-1515823064-d6e0c046b1a0?w=600&q=80" alt="Матча латте" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Матча латте</h4>
+                  <span class="font-heading font-bold text-accent text-lg">260 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Какао" data-price="190">
+              <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5d0b0?w=600&q=80" alt="Какао" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Какао</h4>
+                  <span class="font-heading font-bold text-accent text-lg">190 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Category: Desserts -->
+        <div class="fade-in-up">
+          <h3 class="font-heading text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-accent rounded-full"></span> Десерты
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Чизкейк" data-price="280">
+              <img src="https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=600&q=80" alt="Чизкейк" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Чизкейк</h4>
+                  <span class="font-heading font-bold text-accent text-lg">280 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Круассан" data-price="150">
+              <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80" alt="Круассан" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Круассан</h4>
+                  <span class="font-heading font-bold text-accent text-lg">150 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+            <article class="menu-card bg-white rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300" data-name="Веган брауни" data-price="200">
+              <img src="https://images.unsplash.com/photo-1607920591193-3d890a701e2c?w=600&q=80" alt="Веган брауни" class="w-full h-48 object-cover" loading="lazy">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-heading font-bold text-lg text-primary">Веган брауни</h4>
+                  <span class="font-heading font-bold text-accent text-lg">200 ₽</span>
+                </div>
+                <button class="add-to-cart w-full py-2.5 bg-light text-primary rounded-lg font-medium hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-2">
+                  <i class="fas fa-shopping-basket"></i> В корзину
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ONLINE PAYMENT ========== -->
+    <section id="payment" class="py-16 sm:py-20 lg:py-28 bg-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up max-w-4xl mx-auto text-center">
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">Оплати онлайн — получи скидку 5%</h2>
+          <p class="text-lg text-dark/70 mb-8">Быстро, безопасно, без очереди</p>
+
+          <div class="flex justify-center gap-6 sm:gap-10 mb-10 text-4xl sm:text-5xl text-primary/80">
+            <i class="fab fa-cc-visa" title="Visa"></i>
+            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+            <i class="fas fa-credit-card" title="Mir"></i>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+            <div class="bg-white rounded-xl p-6 shadow-md">
+              <i class="fas fa-bolt text-3xl text-accent mb-3"></i>
+              <p class="font-medium text-primary">Мгновенное подтверждение</p>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-md">
+              <i class="fas fa-shield-alt text-3xl text-accent mb-3"></i>
+              <p class="font-medium text-primary">Безопасная оплата</p>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-md">
+              <i class="fas fa-undo text-3xl text-accent mb-3"></i>
+              <p class="font-medium text-primary">Возврат за 5 минут</p>
+            </div>
+          </div>
+
+          <button class="px-8 py-4 bg-primary hover:bg-[#1E3D32] text-white font-heading font-semibold rounded-xl transition-all hover:scale-105 text-lg">
+            Подключить онлайн-оплату
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== GALLERY ========== -->
+    <section id="gallery" class="py-16 sm:py-20 lg:py-28 bg-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Атмосфера Green Bean</h2>
+          <p class="text-lg text-dark/70">Скандинавский уют и зелень в каждом уголке</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200&q=80" data-alt="Интерьер кофейни">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80" alt="Интерьер кофейни" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1200&q=80" data-alt="Веранда на крыше">
+            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80" alt="Веранда на крыше" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1514434754449-9d67f5f6e6b5?w=1200&q=80" data-alt="Бариста за работой">
+            <img src="https://images.unsplash.com/photo-1514434754449-9d67f5f6e6b5?w=600&q=80" alt="Бариста за работой" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80" data-alt="Десерты">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Десерты" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1447933600013-447147378548?w=1200&q=80" data-alt="Кофейные зёрна">
+            <img src="https://images.unsplash.com/photo-1447933600013-447147378548?w=600&q=80" alt="Кофейные зёрна" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+          <button class="gallery-item fade-in-up rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent" data-src="https://images.unsplash.com/photo-1463793471674-8ad5627b72f9?w=1200&q=80" data-alt="Растения в интерьере">
+            <img src="https://images.unsplash.com/photo-1463793471674-8ad5627b72f9?w=600&q=80" alt="Растения в интерьере" class="w-full h-56 sm:h-64 object-cover" loading="lazy">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROMOTIONS ========== -->
+    <section id="promotions" class="py-16 sm:py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Акции и скидки</h2>
+          <p class="text-lg text-dark/70">Выгодно для вас и для планеты</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <article class="fade-in-up bg-gradient-to-br from-primary to-accent text-white rounded-2xl p-8 hover:scale-105 transition-all duration-300 shadow-lg">
+            <i class="fas fa-mug-hot text-4xl mb-4 opacity-90"></i>
+            <h3 class="font-heading text-xl font-bold mb-2">Принеси свой стакан — скидка 15%</h3>
+            <p class="text-white/85 mb-6">Забота о природе + выгода для тебя</p>
+            <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+              <i class="far fa-clock mr-1"></i> Действует постоянно
+            </span>
+          </article>
+          <article class="fade-in-up bg-gradient-to-br from-primary to-accent text-white rounded-2xl p-8 hover:scale-105 transition-all duration-300 shadow-lg">
+            <i class="fas fa-percent text-4xl mb-4 opacity-90"></i>
+            <h3 class="font-heading text-xl font-bold mb-2">Кофе + десерт = скидка 20%</h3>
+            <p class="text-white/85 mb-6">Идеальное сочетание</p>
+            <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+              <i class="far fa-clock mr-1"></i> До конца месяца
+            </span>
+          </article>
+          <article class="fade-in-up bg-gradient-to-br from-primary to-accent text-white rounded-2xl p-8 hover:scale-105 transition-all duration-300 shadow-lg">
+            <i class="fas fa-sun text-4xl mb-4 opacity-90"></i>
+            <h3 class="font-heading text-xl font-bold mb-2">Утренний кофе до 9:00 — скидка 10%</h3>
+            <p class="text-white/85 mb-6">Для ранних пташек</p>
+            <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+              <i class="far fa-clock mr-1"></i> Каждое утро
+            </span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BOOKING ========== -->
+    <section id="booking" class="py-16 sm:py-20 lg:py-28 bg-cream">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 sm:mb-12 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Забронировать столик</h2>
+          <p class="text-lg text-dark/70">Особенно популярна веранда на крыше!</p>
+        </div>
+
+        <form id="booking-form" class="fade-in-up bg-white rounded-2xl shadow-xl p-6 sm:p-10 space-y-5">
+          <input type="hidden" name="access_key" value="YOUR_KEY_HERE">
+          <input type="hidden" name="subject" value="Новая бронь — Green Bean">
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+
+          <div>
+            <label for="name" class="block text-sm font-medium text-primary mb-1.5">Имя *</label>
+            <input type="text" id="name" name="name" required
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="Как к вам обращаться?">
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-medium text-primary mb-1.5">Телефон *</label>
+            <input type="tel" id="phone" name="phone" required
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="+7 (___) ___-__-__">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="date" class="block text-sm font-medium text-primary mb-1.5">Дата *</label>
+              <input type="date" id="date" name="date" required
+                class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+            </div>
+            <div>
+              <label for="time" class="block text-sm font-medium text-primary mb-1.5">Время *</label>
+              <input type="time" id="time" name="time" required
+                class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+            </div>
+          </div>
+
+          <div>
+            <label for="guests" class="block text-sm font-medium text-primary mb-1.5">Количество человек *</label>
+            <select id="guests" name="guests" required
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+              <option value="" disabled selected>Выберите количество</option>
+              <option value="1">1 человек</option>
+              <option value="2">2 человека</option>
+              <option value="3">3 человека</option>
+              <option value="4">4 человека</option>
+              <option value="5">5 человек</option>
+              <option value="6">6 человек</option>
+              <option value="7">7 человек</option>
+              <option value="8">8 человек</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="wishes" class="block text-sm font-medium text-primary mb-1.5">Пожелания</label>
+            <textarea id="wishes" name="wishes" rows="3"
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
+              placeholder="Хочу столик на веранде / у окна / тихое место"></textarea>
+          </div>
+
+          <button type="submit" id="booking-submit"
+            class="w-full py-4 bg-primary hover:bg-[#1E3D32] text-white font-heading font-semibold rounded-xl transition-all hover:scale-[1.02] text-lg">
+            Забронировать
+          </button>
+
+          <div id="form-message" class="hidden text-center py-3 px-4 rounded-xl font-medium" role="alert"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== CONTACTS ========== -->
+    <section id="contacts" class="py-16 sm:py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16 fade-in-up">
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">Контакты</h2>
+          <p class="text-lg text-dark/70">Ждём вас каждый день</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 fade-in-up">
+          <article class="bg-cream rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <i class="fas fa-map-marker-alt text-4xl text-accent mb-4"></i>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Адрес</h3>
+            <p class="text-dark/80">г. Москва, ул. Экологическая, 15</p>
+            <p class="text-dark/60 text-sm mt-1">Веранда на 5 этаже (лифт есть)</p>
+          </article>
+          <article class="bg-cream rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <i class="fas fa-phone text-4xl text-accent mb-4"></i>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Телефон</h3>
+            <a href="tel:+79991234567" class="text-dark/80 hover:text-accent transition-colors">+7 (999) 123-45-67</a>
+            <p class="text-dark/60 text-sm mt-1">Ежедневно с 8:00 до 22:00</p>
+          </article>
+          <article class="bg-cream rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <i class="fas fa-envelope text-4xl text-accent mb-4"></i>
+            <h3 class="font-heading font-bold text-primary text-lg mb-2">Email</h3>
+            <a href="mailto:hello@greenbean.coffee" class="text-dark/80 hover:text-accent transition-colors">hello@greenbean.coffee</a>
+            <p class="text-dark/60 text-sm mt-1">Отвечаем в течение часа</p>
+          </article>
+        </div>
+
+        <!-- Map -->
+        <div class="fade-in-up rounded-2xl overflow-hidden shadow-lg mb-10 h-72 sm:h-96">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?ll=37.6173%2C55.7558&z=15&pt=37.6173%2C55.7558&l=map"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            allowfullscreen
+            title="Карта Green Bean"
+            loading="lazy"
+            class="w-full h-full border-0">
+          </iframe>
+        </div>
+
+        <!-- Social & Hours -->
+        <div class="fade-in-up flex flex-col sm:flex-row items-center justify-between gap-8 bg-light rounded-2xl p-8">
+          <div class="text-center sm:text-left">
+            <h3 class="font-heading font-bold text-primary text-lg mb-3">Часы работы</h3>
+            <p class="text-dark/80">Пн-Пт: 08:00 — 22:00</p>
+            <p class="text-dark/80">Сб-Вс: 09:00 — 23:00</p>
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-accent transition-all hover:scale-110" aria-label="Instagram">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-accent transition-all hover:scale-110" aria-label="Telegram">
+              <i class="fab fa-telegram text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-accent transition-all hover:scale-110" aria-label="VK">
+              <i class="fab fa-vk text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-primary text-white py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+        <a href="#hero" class="font-heading font-bold text-2xl flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <span aria-hidden="true">🌿</span> Green Bean
+        </a>
+        <nav class="flex flex-wrap justify-center gap-6 text-sm" aria-label="Футер навигация">
+          <a href="index.html" class="hover:text-accent transition-colors">Главная</a>
+          <a href="feedback.html" class="hover:text-accent transition-colors">Обратная связь</a>
+          <a href="privacy.html" class="hover:text-accent transition-colors">Политика конфиденциальности</a>
+        </nav>
+      </div>
+      <div class="border-t border-white/20 pt-8 text-center text-sm text-white/70 space-y-2">
+        <p>© 2026 Green Bean. Все права защищены.</p>
+        <p>Сделано с 💚 и заботой о планете</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== LIGHTBOX ========== -->
+  <div id="lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+    <button id="lightbox-close" class="absolute top-4 right-4 w-12 h-12 text-white/80 hover:text-white text-3xl transition-colors" aria-label="Закрыть">
+      <i class="fas fa-times"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
+  </div>
+
+  <!-- ========== CART MODAL ========== -->
+  <div id="cart-modal" class="hidden fixed inset-0 z-[100] bg-black/50 flex items-end sm:items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Корзина">
+    <div class="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between p-5 border-b border-light">
+        <h3 class="font-heading font-bold text-xl text-primary">Корзина</h3>
+        <button id="cart-close" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-light transition-colors" aria-label="Закрыть">
+          <i class="fas fa-times text-dark/60"></i>
+        </button>
+      </div>
+      <ul id="cart-items" class="p-5 space-y-3 overflow-y-auto max-h-60"></ul>
+      <div class="p-5 border-t border-light bg-cream">
+        <div class="flex justify-between items-center mb-4">
+          <span class="font-medium text-primary">Итого:</span>
+          <span id="cart-total" class="font-heading font-bold text-xl text-accent">0 ₽</span>
+        </div>
+        <button class="w-full py-3 bg-primary hover:bg-[#1E3D32] text-white font-heading font-semibold rounded-xl transition-all">
+          Оформить заказ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] bg-primary text-white px-6 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <span id="toast-text"></span>
+  </div>
+
+  <script>
+    // ===== Header scroll effect =====
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== Mobile menu =====
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      mobileMenu.classList.toggle('closed', !isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      menuIcon.className = isOpen ? 'fas fa-times text-xl' : 'fas fa-bars text-xl';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.classList.add('closed');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuIcon.className = 'fas fa-bars text-xl';
+      });
+    });
+
+    // ===== Fade-in on scroll =====
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    // ===== Phone mask =====
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.startsWith('8')) value = '7' + value.slice(1);
+      if (!value.startsWith('7') && value.length > 0) value = '7' + value;
+
+      let formatted = '+7';
+      if (value.length > 1) formatted += ' (' + value.slice(1, 4);
+      if (value.length >= 4) formatted += ') ' + value.slice(4, 7);
+      if (value.length >= 7) formatted += '-' + value.slice(7, 9);
+      if (value.length >= 9) formatted += '-' + value.slice(9, 11);
+
+      e.target.value = formatted;
+    });
+
+    // ===== Booking form (Web3Forms) =====
+    const bookingForm = document.getElementById('booking-form');
+    const formMessage = document.getElementById('form-message');
+    const bookingSubmit = document.getElementById('booking-submit');
+
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      bookingSubmit.disabled = true;
+      bookingSubmit.textContent = 'Отправка...';
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(bookingForm),
+        });
+        const data = await response.json();
+
+        formMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+
+        if (data.success) {
+          formMessage.classList.add('bg-green-100', 'text-green-700');
+          formMessage.textContent = '✓ Столик успешно забронирован! Мы свяжемся с вами для подтверждения.';
+          bookingForm.reset();
+        } else {
+          formMessage.classList.add('bg-red-100', 'text-red-700');
+          formMessage.textContent = 'Ошибка отправки. Попробуйте позже или позвоните нам.';
+        }
+      } catch {
+        formMessage.classList.remove('hidden');
+        formMessage.classList.add('bg-red-100', 'text-red-700');
+        formMessage.textContent = 'Ошибка сети. Проверьте подключение к интернету.';
+      }
+
+      formMessage.classList.remove('hidden');
+      bookingSubmit.disabled = false;
+      bookingSubmit.textContent = 'Забронировать';
+    });
+
+    // ===== Gallery lightbox =====
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        lightboxImg.src = item.dataset.src;
+        lightboxImg.alt = item.dataset.alt;
+        lightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        cartModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ===== Cart =====
+    let cart = [];
+    const cartCount = document.getElementById('cart-count');
+    const cartModal = document.getElementById('cart-modal');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+
+    function showToast(message) {
+      toastText.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2500);
+    }
+
+    function updateCart() {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      cartCount.textContent = cart.length;
+      cartCount.classList.toggle('hidden', cart.length === 0);
+      cartTotal.textContent = total + ' ₽';
+
+      cartItems.innerHTML = cart.length === 0
+        ? '<li class="text-dark/50 text-center py-4">Корзина пуста</li>'
+        : cart.map((item, i) => `
+            <li class="flex justify-between items-center bg-cream rounded-lg px-4 py-3">
+              <span class="font-medium text-primary">${item.name}</span>
+              <div class="flex items-center gap-3">
+                <span class="text-accent font-bold">${item.price} ₽</span>
+                <button onclick="removeFromCart(${i})" class="text-dark/40 hover:text-red-500 transition-colors" aria-label="Удалить">
+                  <i class="fas fa-trash-alt text-sm"></i>
+                </button>
+              </div>
+            </li>
+          `).join('');
+    }
+
+    window.removeFromCart = function(index) {
+      cart.splice(index, 1);
+      updateCart();
+    };
+
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.menu-card');
+        cart.push({ name: card.dataset.name, price: parseInt(card.dataset.price) });
+        updateCart();
+        showToast(`${card.dataset.name} добавлен в корзину`);
+      });
+    });
+
+    document.getElementById('cart-btn').addEventListener('click', () => {
+      cartModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('cart-close').addEventListener('click', () => {
+      cartModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+
+    cartModal.addEventListener('click', (e) => {
+      if (e.target === cartModal) {
+        cartModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    updateCart();
+
+    // Set min date for booking
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+  </script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Обратная связь Green Bean — жалобы, предложения, благодарности. Мы читаем каждое сообщение и отвечаем в течение 24 часов.">
+  <title>Обратная связь — Green Bean</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2D5A4A',
+            accent: '#7FB069',
+            light: '#E8F0E9',
+            cream: '#F7F9F7',
+            dark: '#2C3E2D',
+          },
+          fontFamily: {
+            heading: ['Poppins', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2C3E2D;
+      background-color: #F7F9F7;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #header.scrolled {
+      background-color: rgba(45, 90, 74, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+    }
+
+    #mobile-menu.closed {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    #mobile-menu.open {
+      max-height: 520px;
+      opacity: 1;
+    }
+
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Star radio buttons */
+    .star-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+    .star-radio label {
+      cursor: pointer;
+      font-size: 2rem;
+      color: #d1d5db;
+      transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .star-radio label:hover,
+    .star-radio label:hover ~ label,
+    .star-radio input:checked ~ label,
+    .star-radio input:focus-visible + label {
+      color: #7FB069;
+    }
+
+    .star-radio {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 0.25rem;
+    }
+
+    .star-radio label:hover { transform: scale(1.1); }
+
+    /* File input styling */
+    .file-upload {
+      border: 2px dashed #E8F0E9;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .file-upload:hover,
+    .file-upload.dragover {
+      border-color: #7FB069;
+      background-color: #E8F0E9;
+    }
+
+    .field-error {
+      border-color: #f87171 !important;
+      ring-color: #f87171;
+    }
+
+    .error-text {
+      color: #dc2626;
+      font-size: 0.8125rem;
+      margin-top: 0.375rem;
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- ========== HEADER ========== -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-primary text-white transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="index.html" class="font-heading font-bold text-xl sm:text-2xl flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <span aria-hidden="true">🌿</span> Green Bean
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Основная навигация">
+          <a href="index.html#about" class="hover:text-accent transition-colors text-sm font-medium">О нас</a>
+          <a href="index.html#menu" class="hover:text-accent transition-colors text-sm font-medium">Меню</a>
+          <a href="index.html#gallery" class="hover:text-accent transition-colors text-sm font-medium">Галерея</a>
+          <a href="index.html#promotions" class="hover:text-accent transition-colors text-sm font-medium">Акции</a>
+          <a href="index.html#booking" class="hover:text-accent transition-colors text-sm font-medium">Бронь</a>
+          <a href="index.html#contacts" class="hover:text-accent transition-colors text-sm font-medium">Контакты</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="index.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-accent hover:bg-[#6A9E5A] rounded-xl text-sm font-heading font-semibold transition-all hover:scale-105">
+            <i class="fas fa-home"></i> На главную
+          </a>
+          <a href="feedback.html" class="hidden sm:flex w-10 h-10 items-center justify-center rounded-full bg-white/15 text-accent" title="Обратная связь" aria-label="Обратная связь (текущая страница)" aria-current="page">
+            <i class="fas fa-comment-alt text-lg"></i>
+          </a>
+          <button id="menu-toggle" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors" aria-label="Открыть меню" aria-expanded="false">
+            <i class="fas fa-bars text-xl" id="menu-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobile-menu" class="closed lg:hidden pb-4" aria-label="Мобильная навигация">
+        <div class="flex flex-col gap-1 pt-2 border-t border-white/20">
+          <a href="index.html#about" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">О нас</a>
+          <a href="index.html#menu" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Меню</a>
+          <a href="index.html#gallery" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Галерея</a>
+          <a href="index.html#promotions" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Акции</a>
+          <a href="index.html#booking" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Бронь</a>
+          <a href="index.html#contacts" class="mobile-link py-3 px-2 hover:bg-white/10 rounded-lg transition-colors font-medium">Контакты</a>
+          <a href="index.html" class="py-3 px-2 bg-accent/20 rounded-lg transition-colors font-medium flex items-center gap-2 mt-1">
+            <i class="fas fa-home"></i> На главную
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section class="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary to-accent"></div>
+      <div class="absolute inset-0 bg-primary/20"></div>
+
+      <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="fade-in-up">
+          <i class="fas fa-comment-dots text-6xl sm:text-7xl text-white/90 mb-6 block" aria-hidden="true"></i>
+          <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-5">
+            Ваше мнение важно для нас
+          </h1>
+          <p class="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            Расскажите, что можно улучшить.<br class="hidden sm:block">
+            Мы читаем каждое сообщение и отвечаем в течение 24 часов.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FORM ========== -->
+    <section class="py-12 sm:py-16 lg:py-20 bg-cream">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up text-center mb-8 sm:mb-10">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-primary mb-2">Напишите нам</h2>
+          <p class="text-dark/60 text-sm sm:text-base">Все поля со звёздочкой обязательны для заполнения</p>
+        </div>
+
+        <form id="feedback-form" class="fade-in-up bg-white rounded-2xl shadow-xl p-6 sm:p-10 space-y-5" novalidate>
+          <input type="hidden" name="access_key" value="YOUR_KEY_HERE">
+          <input type="hidden" name="subject" value="Обратная связь — Green Bean">
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+
+          <!-- Type -->
+          <div>
+            <label for="type" class="block text-sm font-medium text-primary mb-1.5">Тип обращения *</label>
+            <select id="type" name="type" required
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+              <option value="" disabled selected>Выберите тип обращения</option>
+              <option value="Жалоба">Жалоба</option>
+              <option value="Предложение">Предложение</option>
+              <option value="Благодарность">Благодарность</option>
+              <option value="Вопрос">Вопрос</option>
+            </select>
+            <p class="error-text hidden" data-error-for="type"></p>
+          </div>
+
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-primary mb-1.5">Ваше имя *</label>
+            <input type="text" id="name" name="name" required minlength="2"
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="Как к вам обращаться?">
+            <p class="error-text hidden" data-error-for="name"></p>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <label for="contact" class="block text-sm font-medium text-primary mb-1.5">Email или телефон *</label>
+            <input type="text" id="contact" name="contact" required
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="email@example.com или +7 (999) 123-45-67">
+            <p class="error-text hidden" data-error-for="contact"></p>
+          </div>
+
+          <!-- Subject -->
+          <div>
+            <label for="topic" class="block text-sm font-medium text-primary mb-1.5">Тема</label>
+            <input type="text" id="topic" name="topic"
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+              placeholder="Кратко о сути">
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="description" class="block text-sm font-medium text-primary mb-1.5">Описание *</label>
+            <textarea id="description" name="description" rows="5" required minlength="10"
+              class="w-full px-4 py-3 rounded-xl border border-light bg-cream focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
+              placeholder="Подробно опишите ситуацию, укажите дату и время посещения"></textarea>
+            <p class="error-text hidden" data-error-for="description"></p>
+          </div>
+
+          <!-- File upload -->
+          <div>
+            <label class="block text-sm font-medium text-primary mb-1.5">Прикрепить файл</label>
+            <div id="file-drop" class="file-upload rounded-xl p-6 text-center cursor-pointer">
+              <input type="file" id="attachment" name="attachment" accept="image/*,.pdf" class="hidden">
+              <i class="fas fa-cloud-upload-alt text-3xl text-accent mb-2 block"></i>
+              <p class="text-dark/70 text-sm mb-1">Нажмите или перетащите файл сюда</p>
+              <p class="text-dark/50 text-xs">Фото чека, документа (необязательно)</p>
+              <p id="file-name" class="text-primary font-medium text-sm mt-2 hidden"></p>
+            </div>
+            <p class="error-text hidden" data-error-for="attachment"></p>
+          </div>
+
+          <!-- Rating -->
+          <fieldset>
+            <legend class="block text-sm font-medium text-primary mb-3">Как вы оцениваете наш сервис? *</legend>
+            <div class="star-radio" id="rating-group" role="radiogroup" aria-label="Оценка от 1 до 5">
+              <input type="radio" name="rating" id="star5" value="5" required>
+              <label for="star5" title="5 звёзд"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" id="star4" value="4">
+              <label for="star4" title="4 звезды"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" id="star3" value="3">
+              <label for="star3" title="3 звезды"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" id="star2" value="2">
+              <label for="star2" title="2 звезды"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" id="star1" value="1">
+              <label for="star1" title="1 звезда"><i class="fas fa-star"></i></label>
+            </div>
+            <p class="error-text hidden" data-error-for="rating"></p>
+          </fieldset>
+
+          <!-- Want response -->
+          <div class="flex items-start gap-3 bg-light rounded-xl p-4">
+            <input type="checkbox" id="want-response" name="want_response" value="Да"
+              class="mt-1 w-5 h-5 rounded border-light text-accent focus:ring-accent cursor-pointer">
+            <label for="want-response" class="text-sm text-dark/80 cursor-pointer leading-relaxed">
+              Хочу получить ответ <span class="text-dark/50">(обязательно укажите контакты)</span>
+            </label>
+          </div>
+
+          <button type="submit" id="feedback-submit"
+            class="w-full py-4 bg-primary hover:bg-[#1E3D32] text-white font-heading font-semibold rounded-xl transition-all hover:scale-[1.02] text-lg">
+            Отправить
+          </button>
+
+          <div id="form-message" class="hidden text-center py-4 px-5 rounded-xl font-medium leading-relaxed" role="alert"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== URGENT CONTACTS ========== -->
+    <section class="py-12 sm:py-16 lg:py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="fade-in-up font-heading text-2xl sm:text-3xl font-bold text-primary text-center mb-8 sm:mb-10">
+          Или свяжитесь напрямую:
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
+          <article class="fade-in-up bg-cream rounded-2xl p-6 sm:p-8 text-center hover:shadow-lg transition-all hover:scale-105 duration-300">
+            <div class="w-14 h-14 bg-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-phone text-2xl text-accent"></i>
+            </div>
+            <h3 class="font-heading font-bold text-primary mb-2">Телефон управляющего</h3>
+            <a href="tel:+79991234567" class="text-dark/80 hover:text-accent transition-colors font-medium">+7 (999) 123-45-67</a>
+          </article>
+
+          <article class="fade-in-up bg-cream rounded-2xl p-6 sm:p-8 text-center hover:shadow-lg transition-all hover:scale-105 duration-300">
+            <div class="w-14 h-14 bg-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-envelope text-2xl text-accent"></i>
+            </div>
+            <h3 class="font-heading font-bold text-primary mb-2">Email для жалоб</h3>
+            <a href="mailto:feedback@greenbean.coffee" class="text-dark/80 hover:text-accent transition-colors font-medium break-all">feedback@greenbean.coffee</a>
+          </article>
+
+          <article class="fade-in-up bg-cream rounded-2xl p-6 sm:p-8 text-center hover:shadow-lg transition-all hover:scale-105 duration-300">
+            <div class="w-14 h-14 bg-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-clock text-2xl text-accent"></i>
+            </div>
+            <h3 class="font-heading font-bold text-primary mb-2">Время ответа</h3>
+            <p class="text-dark/80 font-medium">24 часа в рабочие дни</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-primary text-white py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+        <a href="index.html" class="font-heading font-bold text-2xl flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <span aria-hidden="true">🌿</span> Green Bean
+        </a>
+        <nav class="flex flex-wrap justify-center gap-6 text-sm" aria-label="Футер навигация">
+          <a href="index.html" class="hover:text-accent transition-colors">Главная</a>
+          <a href="feedback.html" class="text-accent font-medium" aria-current="page">Обратная связь</a>
+          <a href="privacy.html" class="hover:text-accent transition-colors">Политика конфиденциальности</a>
+        </nav>
+      </div>
+      <div class="border-t border-white/20 pt-8 text-center text-sm text-white/70 space-y-2">
+        <p>© 2026 Green Bean. Все права защищены.</p>
+        <p>Сделано с 💚 и заботой о планете</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      mobileMenu.classList.toggle('closed', !isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      menuIcon.className = isOpen ? 'fas fa-times text-xl' : 'fas fa-bars text-xl';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.classList.add('closed');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuIcon.className = 'fas fa-bars text-xl';
+      });
+    });
+
+    // Fade-in on scroll
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Trigger hero animation immediately
+    document.querySelector('section .fade-in-up')?.classList.add('visible');
+
+    // File upload
+    const fileDrop = document.getElementById('file-drop');
+    const fileInput = document.getElementById('attachment');
+    const fileName = document.getElementById('file-name');
+
+    fileDrop.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        fileName.textContent = fileInput.files[0].name;
+        fileName.classList.remove('hidden');
+      } else {
+        fileName.classList.add('hidden');
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach(evt => {
+      fileDrop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        fileDrop.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+      fileDrop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        fileDrop.classList.remove('dragover');
+      });
+    });
+
+    fileDrop.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        fileInput.files = files;
+        fileName.textContent = files[0].name;
+        fileName.classList.remove('hidden');
+      }
+    });
+
+    // Validation helpers
+    const feedbackForm = document.getElementById('feedback-form');
+    const formMessage = document.getElementById('form-message');
+    const feedbackSubmit = document.getElementById('feedback-submit');
+
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorEl = document.querySelector(`[data-error-for="${fieldId}"]`);
+      if (field) field.classList.add('field-error');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+      }
+    }
+
+    function clearErrors() {
+      feedbackForm.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+      feedbackForm.querySelectorAll('.error-text').forEach(el => el.classList.add('hidden'));
+      formMessage.classList.add('hidden');
+    }
+
+    function validateContact(value) {
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRe = /^\+7[\s(]?\d{3}[\s)]?\d{3}[-\s]?\d{2}[-\s]?\d{2}$/;
+      const digits = value.replace(/\D/g, '');
+      const isPhone = digits.length >= 10;
+      const isEmail = emailRe.test(value.trim());
+      return isEmail || isPhone;
+    }
+
+    function validateForm() {
+      clearErrors();
+      let valid = true;
+
+      const type = document.getElementById('type');
+      if (!type.value) {
+        showError('type', 'Выберите тип обращения');
+        valid = false;
+      }
+
+      const name = document.getElementById('name');
+      if (!name.value.trim() || name.value.trim().length < 2) {
+        showError('name', 'Укажите имя (минимум 2 символа)');
+        valid = false;
+      }
+
+      const contact = document.getElementById('contact');
+      if (!contact.value.trim()) {
+        showError('contact', 'Укажите email или телефон');
+        valid = false;
+      } else if (!validateContact(contact.value)) {
+        showError('contact', 'Введите корректный email или телефон');
+        valid = false;
+      }
+
+      const description = document.getElementById('description');
+      if (!description.value.trim() || description.value.trim().length < 10) {
+        showError('description', 'Опишите ситуацию подробнее (минимум 10 символов)');
+        valid = false;
+      }
+
+      const rating = feedbackForm.querySelector('input[name="rating"]:checked');
+      if (!rating) {
+        const errorEl = document.querySelector('[data-error-for="rating"]');
+        if (errorEl) {
+          errorEl.textContent = 'Поставьте оценку от 1 до 5';
+          errorEl.classList.remove('hidden');
+        }
+        valid = false;
+      }
+
+      const wantResponse = document.getElementById('want-response').checked;
+      if (wantResponse && !contact.value.trim()) {
+        showError('contact', 'Для ответа необходимо указать контакты');
+        valid = false;
+      }
+
+      const file = fileInput.files[0];
+      if (file) {
+        const maxSize = 5 * 1024 * 1024;
+        const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
+        if (file.size > maxSize) {
+          showError('attachment', 'Файл не должен превышать 5 МБ');
+          valid = false;
+        } else if (!allowed.includes(file.type) && !file.name.endsWith('.pdf')) {
+          showError('attachment', 'Допустимы только изображения и PDF');
+          valid = false;
+        }
+      }
+
+      return valid;
+    }
+
+    // Clear field error on input
+    feedbackForm.querySelectorAll('input, select, textarea').forEach(el => {
+      el.addEventListener('input', () => {
+        el.classList.remove('field-error');
+        const errorEl = document.querySelector(`[data-error-for="${el.id}"]`);
+        if (errorEl) errorEl.classList.add('hidden');
+      });
+    });
+
+    feedbackForm.querySelectorAll('input[name="rating"]').forEach(el => {
+      el.addEventListener('change', () => {
+        const errorEl = document.querySelector('[data-error-for="rating"]');
+        if (errorEl) errorEl.classList.add('hidden');
+      });
+    });
+
+    // Submit
+    feedbackForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        formMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+        formMessage.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+        formMessage.textContent = 'Пожалуйста, исправьте ошибки в форме.';
+        formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      feedbackSubmit.disabled = true;
+      feedbackSubmit.textContent = 'Отправка...';
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(feedbackForm),
+        });
+        const data = await response.json();
+
+        formMessage.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-green-100', 'text-green-700');
+
+        if (data.success) {
+          formMessage.classList.add('bg-green-100', 'text-green-700');
+          formMessage.innerHTML = '✓ Спасибо! Мы получили ваше сообщение и ответим в течение 24 часов.';
+          feedbackForm.reset();
+          fileName.classList.add('hidden');
+        } else {
+          formMessage.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+          formMessage.textContent = 'Ошибка отправки. Попробуйте позже или свяжитесь с нами напрямую.';
+        }
+      } catch {
+        formMessage.classList.remove('hidden');
+        formMessage.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+        formMessage.textContent = 'Ошибка сети. Проверьте подключение к интернету.';
+      }
+
+      formMessage.classList.remove('hidden');
+      feedbackSubmit.disabled = false;
+      feedbackSubmit.textContent = 'Отправить';
+    });
+  </script>
+</body>
+</html>
