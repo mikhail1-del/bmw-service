@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Баварец — Специализированный сервис BMW в Октябрьском</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +55,65 @@
     .accordion-item.open .acc-icon { transform: rotate(180deg); }
     .acc-icon { transition: transform 0.3s; }
     .nav-bar { background: rgba(0,0,0,0.35); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+    /* ─── Мобильная адаптация ─────────────────────── */
+
+    /* Запрет горизонтального скролла */
+    html, body { overflow-x: hidden; max-width: 100%; }
+
+    /* Hero-высота с учётом адресной строки браузера (iOS/Android) */
+    .hero { min-height: 100svh; }
+    @supports not (min-height: 100svh) {
+      .hero { min-height: -webkit-fill-available; min-height: 100vh; }
+    }
+
+    @media (max-width: 767px) {
+      /* Уменьшаем дорогостоящий blur на мобильных */
+      .bmw-card {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      /* Заголовок hero на маленьких экранах */
+      .hero h1 {
+        font-size: 1.875rem !important;
+        line-height: 1.2 !important;
+      }
+
+      /* Кнопки hero — полная ширина, нормальные отступы */
+      .hero .flex.flex-col a {
+        width: 100%;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      /* Аккордеон — компактные отступы */
+      .accordion-item button {
+        padding: 1rem 1.25rem;
+      }
+      .accordion-body {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      /* CTA-карточка — меньше padding */
+      section .bmw-card.p-12 {
+        padding: 1.5rem !important;
+      }
+
+      /* Карточки отзывов — нет трансформаций на мобильных (производительность) */
+      .bmw-card:hover { transform: none; }
+    }
+
+    @media (max-width: 390px) {
+      /* Самые маленькие экраны */
+      .hero h1 {
+        font-size: 1.5rem !important;
+      }
+      .hero p {
+        font-size: 0.9375rem !important;
+      }
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -66,7 +125,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="w-10 h-10" loading="eager">
           <div>
             <span class="font-display text-sm font-bold tracking-[0.2em] uppercase">Баварец</span>
-            <p class="text-[10px] text-bmw-silver tracking-widest">BMW-Сервис · Октябрьский</p>
+            <p class="text-[10px] text-bmw-silver tracking-widest">BMW-Сервис · Баварец</p>
           </div>
         </a>
         <div class="hidden md:flex items-center gap-8">
@@ -367,8 +426,8 @@
           <ul class="space-y-2 text-sm text-bmw-silver">
             <li><a href="tel:+73476631234" class="hover:text-bmw-blue transition-colors"><i class="fas fa-phone text-bmw-blue w-4"></i> +7 (34766) 3-12-34</a></li>
             <li><a href="tel:+79871234567" class="hover:text-bmw-blue transition-colors"><i class="fas fa-mobile-alt text-bmw-blue w-4"></i> +7 (987) 123-45-67</a></li>
-            <li><a href="mailto:info@autoprofi-okt.ru" class="hover:text-bmw-blue transition-colors break-all"><i class="fas fa-envelope text-bmw-blue w-4"></i> info@autoprofi-okt.ru</a></li>
-            <li class="flex items-start gap-2"><i class="fas fa-map-marker-alt text-bmw-blue w-4 mt-0.5"></i> Республика Башкортостан, г. Октябрьский, 34 мкр., д. 14</li>
+            <li><a href="mailto:info@bavarec.ru" class="hover:text-bmw-blue transition-colors break-all"><i class="fas fa-envelope text-bmw-blue w-4"></i> info@bavarec.ru</a></li>
+            <li class="flex items-start gap-2"><i class="fas fa-map-marker-alt text-bmw-blue w-4 mt-0.5"></i> г. Октябрьский, ул. Комсомольская, 50/2</li>
           </ul>
         </div>
         <div>
@@ -381,7 +440,7 @@
         </div>
       </div>
       <div class="bmw-divider mb-6"></div>
-      <p class="text-center text-bmw-silver text-xs">&copy; 2026 Баварец — BMW-Сервис Октябрьский. Не является официальным дилером BMW AG.</p>
+      <p class="text-center text-bmw-silver text-xs">&copy; 2026 Баварец — BMW-Сервис. Не является официальным дилером BMW AG.</p>
     </div>
   </footer>
 
@@ -416,7 +475,7 @@ document.getElementById('booking-form').addEventListener('submit', async functio
     phone: this.phone.value,
     model: this['bmw-model'].value,
     description: this.description.value,
-    subject: '🚗 Новая заявка - BMW Сервис Октябрьский',
+    subject: '🚗 Новая заявка - Баварец BMW-Сервис',
     from_name: 'BMW Сервис',
     replyto: this.email ? this.email.value : this.phone.value
   };
