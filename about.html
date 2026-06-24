@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О сервисе «Баварец» — BMW-Сервис Октябрьский</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>tailwind.config={theme:{extend:{colors:{bmw:{black:'#000',dark:'#121212',blue:'#1C69D4',silver:'#C0C0C0'}},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}body{background:#000;color:#fff;font-family:Inter,sans-serif}
+    .font-display{font-family:Montserrat,sans-serif}
+    .bmw-card{background:rgba(18,18,18,.8);border:1px solid rgba(255,255,255,.08);transition:border-color .3s}
+    .bmw-card:hover{border-color:#1C69D4}
+    .bmw-btn-fill{background:#1C69D4;border:1px solid #1C69D4}.bmw-btn-fill:hover{background:#1558b0}
+    .bmw-divider{height:1px;background:linear-gradient(90deg,transparent,#1C69D4,transparent)}
+    .reveal{opacity:0;transform:translateY(30px);transition:all .6s}.reveal.visible{opacity:1;transform:none}
+    .nav-bar{background:rgba(0,0,0,.9);border-bottom:1px solid rgba(255,255,255,.08)}
+  </style>
+</head>
+<body class="antialiased">
+  <header class="nav-bar fixed top-0 left-0 right-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 lg:h-20">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="w-9 h-9" loading="eager">
+        <span class="font-display text-sm font-bold tracking-[0.2em] uppercase">Баварец</span>
+      </a>
+      <div class="hidden md:flex gap-8 text-sm uppercase tracking-wider">
+        <a href="index.html" class="text-bmw-silver hover:text-white">Главная</a>
+        <a href="services.html" class="text-bmw-silver hover:text-white">Услуги</a>
+        <a href="about.html" class="text-bmw-blue font-medium">О нас</a>
+        <a href="contacts.html" class="text-bmw-silver hover:text-white">Контакты</a>
+      </div>
+      <a href="contacts.html" class="hidden md:inline-block bmw-btn-fill px-5 py-2 text-xs uppercase tracking-wider rounded-sm">Записаться</a>
+      <button id="menuBtn" class="md:hidden text-white"><i class="fas fa-bars"></i></button>
+    </nav>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 border-t border-white/10 pt-4">
+      <a href="index.html" class="block py-2 text-bmw-silver uppercase text-sm">Главная</a>
+      <a href="services.html" class="block py-2 text-bmw-silver uppercase text-sm">Услуги</a>
+      <a href="about.html" class="block py-2 text-bmw-blue uppercase text-sm">О нас</a>
+      <a href="contacts.html" class="block py-2 text-bmw-silver uppercase text-sm">Контакты</a>
+    </div>
+  </header>
+
+  <section class="pt-32 pb-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-bmw-blue text-sm uppercase tracking-[0.3em] mb-4 font-display">8 лет только BMW</p>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold uppercase tracking-tight mb-6">О сервисе «Баварец»</h1>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="reveal bmw-card p-10 lg:p-14 rounded-sm">
+        <p class="text-bmw-silver text-lg leading-relaxed mb-6">В 2018 году мы открыли небольшой сервис в Октябрьском, потому что устали видеть, как владельцев BMW разводят на деньги в универсальных автосервисах. Мастера брались за баварские машины, не имея ни опыта, ни оборудования, ни оригинальных запчастей. Результат — испорченные машины и пустые кошельки клиентов.</p>
+        <p class="text-bmw-silver text-lg leading-relaxed mb-6">Мы решили сделать по-другому: специализация только на BMW, дилерское оборудование, оригинальные запчасти и честные цены. За 8 лет мы выросли из гаража на две машины в полноценный сервис с пятью мастерами, четырьмя подъёмниками и складом запчастей.</p>
+        <p class="text-bmw-silver text-lg leading-relaxed">Сегодня «Баварец» — это место, куда не страшно приехать. 94% клиентов возвращаются к нам снова. Это лучшая реклама, которую мы могли получить.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-bmw-dark">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="font-display text-3xl font-semibold uppercase mb-12 text-center reveal">Наша команда</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="reveal bmw-card p-8 text-center rounded-sm">
+          <div class="w-24 h-24 mx-auto mb-4 border border-white/10 rounded-full flex items-center justify-center"><i class="fas fa-user-tie text-3xl text-bmw-blue/50"></i></div>
+          <h3 class="font-display font-bold uppercase">Рустам Халилов</h3>
+          <p class="text-bmw-blue text-xs uppercase tracking-widest mb-3">Главный механик · 15 лет с BMW</p>
+          <p class="text-bmw-silver text-sm">Начинал в официальном дилере BMW в Уфе. Основатель сервиса. Специализация: двигатели N47, N57, B48, B58, капремонт, устранение масложора.</p>
+        </div>
+        <div class="reveal bmw-card p-8 text-center rounded-sm">
+          <div class="w-24 h-24 mx-auto mb-4 border border-white/10 rounded-full flex items-center justify-center"><i class="fas fa-microchip text-3xl text-bmw-blue/50"></i></div>
+          <h3 class="font-display font-bold uppercase">Айрат Галимов</h3>
+          <p class="text-bmw-blue text-xs uppercase tracking-widest mb-3">Автоэлектрик-диагност · 12 лет с BMW</p>
+          <p class="text-bmw-silver text-sm">Найдёт обрыв проводки там, где другие сдаются. Решает проблемы с iDrive, блоками управления, иммобилайзером — от которых отказываются в других сервисах.</p>
+        </div>
+        <div class="reveal bmw-card p-8 text-center rounded-sm">
+          <div class="w-24 h-24 mx-auto mb-4 border border-white/10 rounded-full flex items-center justify-center"><i class="fas fa-car text-3xl text-bmw-blue/50"></i></div>
+          <h3 class="font-display font-bold uppercase">Марат Ахметов</h3>
+          <p class="text-bmw-blue text-xs uppercase tracking-widest mb-3">Ходовая часть · 8 лет с BMW</p>
+          <p class="text-bmw-silver text-sm">Пневмоподвеска EHC, рычаги, сайлентблоки, M-подвеска. Развал-схождение на 3D-стенде. Знает все слабые места ходовой X5 и X7.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="font-display text-3xl font-semibold uppercase mb-12 text-center reveal">На чём мы работаем</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+        <div class="bmw-card p-8 text-center rounded-sm"><p class="font-display font-bold text-xl uppercase text-bmw-blue mb-2">BMW ISTA</p><p class="text-bmw-silver text-xs">Дилерский сканер — полная диагностика всех систем, кодирование, прошивки</p></div>
+        <div class="bmw-card p-8 text-center rounded-sm"><p class="font-display font-bold text-xl uppercase text-bmw-blue mb-2">4 подъёмника</p><p class="text-bmw-silver text-xs">Грузоподъёмность 6Т каждый — работаем без очередей</p></div>
+        <div class="bmw-card p-8 text-center rounded-sm"><p class="font-display font-bold text-xl uppercase text-bmw-blue mb-2">Hunter 3D</p><p class="text-bmw-silver text-xs">3D-стенд развал-схождения с протоколом до и после</p></div>
+        <div class="bmw-card p-8 text-center rounded-sm"><p class="font-display font-bold text-xl uppercase text-bmw-blue mb-2">Спец. инструмент</p><p class="text-bmw-silver text-xs">BMW-съёмники, адаптеры для АКПП ZF, стенд для форсунок и ТНВД</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-bmw-dark">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-6 text-center">
+      <div class="reveal"><p class="font-display text-4xl font-bold text-bmw-blue">2 500+</p><p class="text-bmw-silver text-sm uppercase tracking-wider mt-2">Обслуженных автомобилей</p></div>
+      <div class="reveal"><p class="font-display text-4xl font-bold text-bmw-blue">94%</p><p class="text-bmw-silver text-sm uppercase tracking-wider mt-2">Клиентов возвращаются</p></div>
+      <div class="reveal"><p class="font-display text-4xl font-bold text-bmw-blue">8 лет</p><p class="text-bmw-silver text-sm uppercase tracking-wider mt-2">Специализации на BMW</p></div>
+      <div class="reveal"><p class="font-display text-4xl font-bold text-bmw-blue">2 года</p><p class="text-bmw-silver text-sm uppercase tracking-wider mt-2">Гарантия на все работы</p></div>
+    </div>
+  </section>
+
+  <section class="py-24 text-center">
+    <a href="contacts.html" class="bmw-btn-fill inline-block px-10 py-4 text-sm uppercase tracking-wider rounded-sm">Записаться на диагностику</a>
+  </section>
+
+  <footer class="bg-black border-t border-white/10 pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bmw-divider mb-8"></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm text-bmw-silver">
+        <div><span class="font-display uppercase tracking-widest text-white text-xs">Баварец</span><p class="mt-2 text-xs">8 лет чиним только BMW в Октябрьском.</p></div>
+        <div><a href="tel:+73476631234" class="hover:text-bmw-blue block">+7 (34766) 3-12-34</a><a href="tel:+79871234567" class="hover:text-bmw-blue block">+7 (987) 123-45-67</a></div>
+        <div><a href="mailto:info@autoprofi-okt.ru" class="hover:text-bmw-blue">info@autoprofi-okt.ru</a></div>
+        <div>Республика Башкортостан, г. Октябрьский, 34 мкр., д. 14</div>
+      </div>
+      <p class="text-center text-xs text-bmw-silver mt-8">&copy; 2026 Баварец — BMW-Сервис Октябрьский. Не является официальным дилером BMW AG.</p>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('hidden'));
+    document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1}).observe(el));
+  </script>
+</body>
+</html>
