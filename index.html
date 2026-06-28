@@ -252,6 +252,7 @@
       muted
       loop
       playsinline
+      webkit-playsinline
       preload="auto"
       poster="https://images.pexels.com/videos/4568863/pictures/preview-0.jpg"
       aria-hidden="true">
@@ -576,10 +577,27 @@
     }
     const heroVideo = document.getElementById('heroVideo');
     if (heroVideo) {
-      const showVideo = () => heroVideo.classList.add('is-loaded');
+      heroVideo.muted = true;
+      heroVideo.loop = true;
+      heroVideo.playsInline = true;
+
+      const playHeroVideo = () => {
+        heroVideo.classList.add('is-loaded');
+        const playPromise = heroVideo.play();
+        if (playPromise) playPromise.catch(() => {});
+      };
+      const restartHeroVideo = () => {
+        heroVideo.currentTime = 0;
+        playHeroVideo();
+      };
+      const showVideo = () => playHeroVideo();
       heroVideo.addEventListener('loadeddata', showVideo);
       heroVideo.addEventListener('canplay', showVideo);
-      if (heroVideo.readyState >= 2) showVideo();
+      heroVideo.addEventListener('ended', restartHeroVideo);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) playHeroVideo();
+      });
+      if (heroVideo.readyState >= 2) playHeroVideo();
     }
   </script>
   <script>
