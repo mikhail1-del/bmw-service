@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Услуги и цены — Баварец · BMW-Сервис</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>tailwind.config={theme:{extend:{colors:{bmw:{black:'#000',dark:'#121212',blue:'#1C69D4',silver:'#C0C0C0'}},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}body{background:#000;color:#fff;font-family:Inter,sans-serif}
+    .font-display{font-family:Montserrat,sans-serif}
+    .bmw-card{background:rgba(18,18,18,.8);border:1px solid rgba(255,255,255,.08);transition:border-color .3s,transform .3s}
+    .bmw-card:hover{border-color:#1C69D4;transform:translateY(-2px)}
+    .bmw-btn{border:1px solid #1C69D4;background:transparent;transition:all .3s}.bmw-btn:hover{background:#1C69D4}
+    .bmw-btn-fill{background:#1C69D4;border:1px solid #1C69D4}.bmw-btn-fill:hover{background:#1558b0}
+    .bmw-divider{height:1px;background:linear-gradient(90deg,transparent,#1C69D4,transparent)}
+    .reveal{opacity:0;transform:translateY(30px);transition:all .6s}.reveal.visible{opacity:1;transform:none}
+    .nav-bar{background:rgba(0,0,0,.9);border-bottom:1px solid rgba(255,255,255,.08)}
+    .price{font-variant-numeric:tabular-nums}
+  </style>
+</head>
+<body class="antialiased">
+  <header class="nav-bar fixed top-0 left-0 right-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="w-9 h-9" loading="eager">
+        <span class="font-display text-sm font-bold tracking-[0.2em] uppercase">Баварец</span>
+      </a>
+      <div class="hidden md:flex gap-8 text-sm uppercase tracking-wider">
+        <a href="index.html" class="text-bmw-silver hover:text-white">Главная</a>
+        <a href="services.html" class="text-bmw-blue font-medium">Услуги</a>
+        <a href="about.html" class="text-bmw-silver hover:text-white">О нас</a>
+        <a href="contacts.html" class="text-bmw-silver hover:text-white">Контакты</a>
+      </div>
+      <a href="contacts.html" class="hidden md:inline-block bmw-btn-fill px-5 py-2 text-xs uppercase tracking-wider rounded-sm">Записаться</a>
+      <button id="menuBtn" class="md:hidden text-white"><i class="fas fa-bars"></i></button>
+    </nav>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 border-t border-white/10 pt-4">
+      <a href="index.html" class="block py-2 text-bmw-silver uppercase text-sm">Главная</a>
+      <a href="services.html" class="block py-2 text-bmw-blue uppercase text-sm">Услуги</a>
+      <a href="about.html" class="block py-2 text-bmw-silver uppercase text-sm">О нас</a>
+      <a href="contacts.html" class="block py-2 text-bmw-silver uppercase text-sm">Контакты</a>
+    </div>
+  </header>
+
+  <section class="pt-32 pb-16 bg-gradient-to-b from-bmw-dark to-black">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-bmw-blue text-sm uppercase tracking-[0.3em] mb-4 font-display">Прайс 2026</p>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold uppercase tracking-tight mb-4">Услуги и цены</h1>
+      <p class="text-bmw-silver max-w-2xl mx-auto">Полный спектр работ по обслуживанию и ремонту BMW. Честные цены без скрытых доплат.</p>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-12 gap-4 lg:gap-6">
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-laptop-code text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Компьютерная диагностика</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 1 500 ₽</p>
+          <p class="text-bmw-silver text-xs">Полная проверка всех систем через BMW ISTA. Считываем ошибки, тестируем блоки, даём распечатку. 30–60 мин.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-oil-can text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Замена масла и фильтров (ТО)</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 2 500 ₽</p>
+          <p class="text-bmw-silver text-xs">Масла BMW Longlife-04/17 FE+. Фильтры Mann, Mahle. Двигатель, коробка, раздатка, мосты. 40–90 мин.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-clipboard-list text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Ремонт двигателей</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 5 000 ₽</p>
+          <p class="text-bmw-silver text-xs">Прокладки, сальники, капремонт. N47, N57, N20, N55, B48, B58, S63. Масложор, троение, перегрев. От 1 дня.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-link text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Ремонт ходовой части</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 3 000 ₽</p>
+          <p class="text-bmw-silver text-xs">Рычаги, сайлентблоки, стойки, пружины. Пневмоподвеска EHC. Развал-схождение на 3D-стенде. 2–4 часа.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-cog text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Автоэлектрика и электроника</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 2 000 ₽</p>
+          <p class="text-bmw-silver text-xs">Блоки управления, проводка, датчики. iDrive, бортовая сеть, иммобилайзер, кодирование. 1–3 часа.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-gears text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Тормозная система</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 2 500 ₽</p>
+          <p class="text-bmw-silver text-xs">Колодки, диски, суппорты, прокачка. Ремонт ABS, ESP. Оригинальные тормозные системы BMW. 1–2 часа.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-droplet text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Система охлаждения</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 3 500 ₽</p>
+          <p class="text-bmw-silver text-xs">Радиаторы, помпы, термостаты, патрубки. Устранение течей. Прошивка термостата N20/N55. 2–4 часа.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-compress text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Чип-тюнинг</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 15 000 ₽</p>
+          <p class="text-bmw-silver text-xs">Revo, APR, BM3 — Stage 1/Stage 2. Мощность и крутящий момент. Гарантия на работу 1 год. 2–3 часа.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-code text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Ремонт трансмиссии</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 8 000 ₽</p>
+          <p class="text-bmw-silver text-xs">Замена масла АКПП ZF 8HP, DCT. Ремонт мехатроника, соленоидов. Адаптация коробки. 3–6 часов.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-fan text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Кузовной ремонт</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 5 000 ₽</p>
+          <p class="text-bmw-silver text-xs">PDR — удаление вмятин без покраски. Полировка, ЛКП. Замена стёкол, фар, бамперов. От 2 часов.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-water text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Замена цепи ГРМ</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 28 000 ₽</p>
+          <p class="text-bmw-silver text-xs">N47, N57, N20, B48. Комплект цепей, натяжители, направляющие. Не ждите обрыва — от 1 дня.</p>
+        </div>
+        <div class="reveal col-span-12 sm:col-span-6 lg:col-span-4 bmw-card p-6 rounded-sm">
+          <i class="fas fa-compass text-bmw-blue mb-3"></i>
+          <h3 class="font-display font-semibold uppercase text-sm mb-1">Развал-схождение 3D</h3>
+          <p class="price text-2xl font-display font-bold text-bmw-blue mb-2">от 2 500 ₽</p>
+          <p class="text-bmw-silver text-xs">3D-стенд, протокол до/после. Проверка углов по BMW-спецификации. Необходима после замены ходовой. 1 час.</p>
+        </div>
+      </div>
+      <p class="text-bmw-silver text-xs text-center mt-8">* Запчасти оплачиваются отдельно. Оригинал и OEM (Mahle, Mann, Lemförder). Точная стоимость — после диагностики ISTA. Рыночные данные 2025–2026.</p>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24 bg-bmw-dark">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="reveal mb-12">
+        <h2 class="font-display text-3xl font-semibold uppercase">Регламент ТО BMW (CBS)</h2>
+        <p class="text-bmw-silver mt-2 text-sm">Система Condition Based Service — интервалы по пробегу и условиям эксплуатации</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal bmw-card p-8 rounded-sm">
+          <p class="text-bmw-blue font-display font-bold text-lg mb-2">ТО-1 · 10 000 км</p>
+          <ul class="text-bmw-silver text-sm space-y-2">
+            <li>· Масло двигателя + масляный фильтр</li>
+            <li>· Воздушный фильтр</li>
+            <li>· Салонный микрофильтр</li>
+            <li>· Компьютерная диагностика</li>
+            <li>· Осмотр ходовой и тормозов</li>
+          </ul>
+        </div>
+        <div class="reveal bmw-card p-8 rounded-sm">
+          <p class="text-bmw-blue font-display font-bold text-lg mb-2">ТО-2 · 20 000 км</p>
+          <ul class="text-bmw-silver text-sm space-y-2">
+            <li>· Всё из ТО-1</li>
+            <li>· Топливный фильтр (дизель)</li>
+            <li>· Тормозная жидкость (раз в 2 года)</li>
+            <li>· Проверка приводных ремней</li>
+          </ul>
+        </div>
+        <div class="reveal bmw-card p-8 rounded-sm">
+          <p class="text-bmw-blue font-display font-bold text-lg mb-2">ТО-3 · 40 000 км</p>
+          <ul class="text-bmw-silver text-sm space-y-2">
+            <li>· Свечи зажигания (бензин)</li>
+            <li>· Масло АКПП ZF 8HP (каждые 60 000 км)</li>
+            <li>· Охлаждающая жидкость G48</li>
+            <li>· Полная проверка всех систем</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12">
+      <div class="reveal">
+        <h2 class="font-display text-2xl font-semibold uppercase mb-6">Наше оборудование</h2>
+        <p class="text-bmw-silver leading-relaxed mb-6">Работаем на дилерском ПО BMW ISTA и сканерах iCom Next — то же, что и у официальных дилеров. Плюс Launch X431 для расширенной диагностики, 3D-стенд развала, подъёмники 6Т.</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 border border-white/10 text-xs uppercase tracking-wider text-bmw-silver">ISTA</span>
+          <span class="px-4 py-2 border border-white/10 text-xs uppercase tracking-wider text-bmw-silver">INPA</span>
+          <span class="px-4 py-2 border border-white/10 text-xs uppercase tracking-wider text-bmw-silver">BMW iCom</span>
+          <span class="px-4 py-2 border border-white/10 text-xs uppercase tracking-wider text-bmw-silver">Launch X431</span>
+        </div>
+      </div>
+      <div class="reveal bmw-card p-8 rounded-sm">
+        <h3 class="font-display font-semibold uppercase mb-4">Популярные запчасти ТО</h3>
+        <ul class="text-bmw-silver text-sm space-y-3">
+          <li class="flex justify-between border-b border-white/5 pb-2"><span>Масло 5W-30 LL-04 (5л)</span><span class="text-bmw-blue">от 4 500 ₽</span></li>
+          <li class="flex justify-between border-b border-white/5 pb-2"><span>Фильтр масляный Mann HU</span><span class="text-bmw-blue">от 800 ₽</span></li>
+          <li class="flex justify-between border-b border-white/5 pb-2"><span>Фильтр воздушный Mann C</span><span class="text-bmw-blue">от 1 200 ₽</span></li>
+          <li class="flex justify-between border-b border-white/5 pb-2"><span>ATF ZF Lifeguard 8 (9л)</span><span class="text-bmw-blue">от 9 000 ₽</span></li>
+          <li class="flex justify-between"><span>Комплект цепи N47 OEM</span><span class="text-bmw-blue">от 18 000 ₽</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-12 reveal">
+      <a href="contacts.html" class="bmw-btn-fill inline-block px-8 py-4 text-sm uppercase tracking-wider rounded-sm">Записаться на услугу</a>
+    </div>
+  </section>
+
+  <footer class="bg-black border-t border-white/10 pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bmw-divider mb-8"></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm text-bmw-silver">
+        <div><span class="font-display uppercase tracking-widest text-white text-xs">Баварец</span><p class="mt-1 text-xs">BMW-Сервис</p></div>
+        <div><a href="index.html" class="hover:text-bmw-blue">Главная</a> · <a href="services.html" class="hover:text-bmw-blue">Услуги</a> · <a href="about.html" class="hover:text-bmw-blue">О нас</a></div>
+        <div>
+          <a href="tel:+73476631234" class="hover:text-bmw-blue block">+7 (34766) 3-12-34</a>
+          <a href="tel:+79871234567" class="hover:text-bmw-blue block">+7 (987) 123-45-67</a>
+          <a href="mailto:info@bavarec.ru" class="hover:text-bmw-blue block">info@bavarec.ru</a>
+        </div>
+        <div>ул. Комсомольская, 50/2, г. Октябрьский<br>Пн–Пт 09:00–20:00</div>
+      </div>
+      <p class="text-center text-xs text-bmw-silver mt-8">&copy; 2026 Баварец — BMW-Сервис. Не является официальным дилером BMW AG.</p>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('hidden'));
+    new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}}),{threshold:.1}).observe&&document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1}).observe(el));
+  </script>
+</body>
+</html>
